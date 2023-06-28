@@ -1,0 +1,11 @@
+{
+  "name": "preentrega_2_sole",
+  "version": "1.0.0",
+  "description": "Pre_Entrega_2_Sole",
+  "main": "ProductManager.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luciano Sole",
+  "license": "ISC"
+}
