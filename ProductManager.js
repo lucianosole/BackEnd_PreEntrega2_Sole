@@ -1,4 +1,4 @@
-console.log("Inicio de programa");
+const { resolve } = require("dns/promises");
 const fs = require("fs/promises");
 const path = require("path");
 
@@ -34,36 +34,46 @@ class ProductManager {
   async updateProduct(id, product) {
     const data = await fs.readFile(this.filePath, "utf-8");
     const products = JSON.parse(data);
-  }
 
-  // updateProduct(id, product) {
-  //   // ✓ Debe tener un método updateProduct, el
-  //   // cual debe recibir el id del producto a
-  //   // actualizar, así también como el campo a
-  //   // actualizar (puede ser el objeto completo,
-  //   // como en una DB), y debe actualizar el
-  //   // producto que tenga ese id en el archivo.
-  // }
+    const productExists = products.some((product) => product.id === id);
+    if (productExists) {
+      const updateProduct = products.map((p) => {
+        if (p.id === id) {
+          return {
+            ...p,
+            title: product.title,
+            description: product.description,
+            code: product.code,
+            thumbnail: product.thumbnail,
+            price: product.price,
+          };
+        }
+        return p;
+      });
+
+      await fs.writeFile(this.filePath, JSON.stringify(updateProduct, null, 2));
+    } else {
+      console.log(`El ID: ${id} no existe en la lista de productos.`);
+      return;
+    }
+  }
 
   async deleteProduct(id) {
     const data = await fs.readFile(this.filePath, "utf-8");
     const products = JSON.parse(data);
 
-    // Filtrar el arreglo de productos y mantener solo los IDs diferentes al ID especificado
+    const productExists = products.some((product) => product.id === id);
+    if (!productExists) {
+      console.log(`El ID: ${id} no existe en la lista de productos.`);
+      return;
+    }
+
     const idDeleted = { id: id };
     const newProducts = products.filter((product) => product.id !== id);
     newProducts.push(idDeleted);
 
     await fs.writeFile(this.filePath, JSON.stringify(newProducts, null, 2));
   }
-
-  // deleteProduct(id) {
-  //   // ✓ Debe tener un método deleteProduct, el
-  //   // cual debe recibir un id y debe eliminar el
-  //   // producto que tenga ese id en el archivo.
-  //   // NO DEBE BORRARSE SU ID
-
-  // }
 }
 
 const manager = new ProductManager(path.join(__dirname, "products.json"));
@@ -102,6 +112,14 @@ const manager = new ProductManager(path.join(__dirname, "products.json"));
 // manager.getProductById(3).then((product) => console.log(product));
 
 // PARA BORRAR UN PRODUCTO, MANTENINEDO ID:
-// manager.deleteProduct(9);
+// manager.deleteProduct(10);
 
-console.log("Fin de programa");
+// PARA ACTUALIZAR UN PRODUCTO POR ID: (ID, PRODUCTO)
+// manager.updateProduct(1000, {
+//   title: "prueba de cambio1",
+//   description: "Pegamento universal",
+//   price: 60,
+//   thumbnail: "imagen3.jpg",
+//   code: "000AD",
+//   stock: 8,
+// });
