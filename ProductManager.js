@@ -48,10 +48,15 @@ class ProductManager {
   async deleteProduct(id) {
     const data = await fs.readFile(this.filePath, "utf-8");
     const products = JSON.parse(data);
+
+    // Filtrar el arreglo de productos y mantener solo los IDs diferentes al ID especificado
+    const idDeleted = { id: id };
     const newProducts = products.filter((product) => product.id !== id);
+    newProducts.push(idDeleted);
 
     await fs.writeFile(this.filePath, JSON.stringify(newProducts, null, 2));
   }
+
   // deleteProduct(id) {
   //   // ✓ Debe tener un método deleteProduct, el
   //   // cual debe recibir un id y debe eliminar el
@@ -90,10 +95,13 @@ const manager = new ProductManager(path.join(__dirname, "products.json"));
 //   stock: 8,
 // });
 
+// OBTENER TODOS LOS PRODUCTOS:
 // manager.getProducts().then((products) => console.log(products));
 
-// manager.getProductById(1).then((product) => console.log(product));
+// OBTENER PRODUCTO POR ID
+// manager.getProductById(3).then((product) => console.log(product));
 
-// manager.deleteProduct(2);
+// PARA BORRAR UN PRODUCTO, MANTENINEDO ID:
+// manager.deleteProduct(9);
 
 console.log("Fin de programa");

@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "title": "Sierra",
+    "description": "Sierra Nro2",
+    "price": 180,
+    "thumbnail": "imagen2.jpg",
+    "code": "123AV",
+    "stock": 9,
+    "id": 4
+  },
+  {
+    "id": 7
+  },
+  {
+    "id": 6
+  },
+  {
+    "title": "Super Glue",
+    "description": "Pegamento universal",
+    "price": 60,
+    "thumbnail": "imagen3.jpg",
+    "code": "000AD",
+    "stock": 8,
+    "id": 7
+  },
+  {
+    "title": "Super Glue",
+    "description": "Pegamento universal",
+    "price": 60,
+    "thumbnail": "imagen3.jpg",
+    "code": "000AD",
+    "stock": 8,
+    "id": 8
+  },
+  {
+    "title": "Super Glue",
+    "description": "Pegamento universal",
+    "price": 60,
+    "thumbnail": "imagen3.jpg",
+    "code": "000AD",
+    "stock": 8,
+    "id": 10
+  },
+  {
+    "id": 9
+  }
+]
